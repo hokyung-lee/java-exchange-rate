@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>환율 계산기</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let baseCurrency = /*[[${baseCurrency}]]*/
+
+        /*]]>*/
+    </script>
+    <script type="text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+<h1>환율 계산</h1>
+<br />
+<p>송금국가: <span th:text="${baseCountry} + ' ' + '(' + ${baseCurrency} + ')'"></span></p>
+<p>수취국가:
+    <select id="currencyData">
+        <th:block th:each="item : ${currencyData}">
+            <option th:value="${item.exchangeRate}" th:text="${item.countryName} + ' ' + '(' + ${item.currencyName} + ')'" th:currency="${item.currencyName}"/>
+        </th:block>
+    </select>
+</p>
+<p>환율: <span id="selectedCurrency"></span></p>
+<p>송금액: <input type="text" id="inputAmount" /><span th:text="${baseCurrency}">USD</span></p>
+<button id="calc">Submit</button>
+<br />
+<p id="resultArea"></p>
+<script type="text/javascript" th:src="@{/js/currency.js}"></script>
+</body>
+</html>
